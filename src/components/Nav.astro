@@ -1,0 +1,308 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.png';
+import { services, outcomeServices } from '../data/index';
+import { company } from '../data/company';
+import { servicePageMap } from '../data/service-pages';
+import { serviceTiers } from '../data/service-tiers';
+
+interface Props {
+  mode?: 'homepage' | 'subpage';
+  ctaHref?: string;
+}
+
+const { mode = 'subpage', ctaHref = '#contact' } = Astro.props;
+
+// Top guides for Resources dropdown
+const topGuides = [
+  { name: "What Is Forestry Mulching?", href: "/learn/what-is-forestry-mulching/" },
+  { name: "EQIP Cost-Share Guide", href: "/learn/eqip-cost-share-landowner-guide/" },
+  { name: "Understanding Prescribed Fire", href: "/learn/understanding-prescribed-fire-southeast/" },
+  { name: "What Is Mesophication?", href: "/learn/what-is-mesophication/" },
+];
+
+const isHomepage = mode === 'homepage';
+const href = (hash: string) => isHomepage ? hash : `/${hash}`;
+
+// Group services by tier for nav dropdown
+const tier1 = serviceTiers[0];
+const tier2 = serviceTiers[1];
+---
+
+<nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-white/5">
+  <div class="max-w-7xl mx-auto fluid-px">
+    <div class="flex items-center justify-between h-16 sm:h-20">
+      <a href={isHomepage ? '#' : '/'} class="flex items-center">
+        <Image src={logo} alt="TreeShop LLC" width={40} height={40} class="rounded-lg" />
+      </a>
+
+      <div class="hidden md:flex items-center gap-8">
+        {!isHomepage && (
+          <a href="/" class="text-sm text-gray-400 hover:text-white transition-colors">Home</a>
+        )}
+
+        <!-- Services dropdown -->
+        <div class="relative group" id="nav-services-dropdown">
+          <button
+            type="button"
+            class="flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            Services
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50" id="nav-dropdown-panel">
+            <div class="bg-dark-800 border border-white/10 rounded-xl shadow-2xl w-80 py-2 overflow-hidden max-h-[80vh] overflow-y-auto">
+              <!-- Tier 1: Land Clearing & Site Work -->
+              <p class="px-4 py-2 text-xs font-semibold text-primary-400 uppercase tracking-wider">{tier1.name}</p>
+              {services.map((s) => {
+                const pageUrl = servicePageMap[s.slug];
+                const linkHref = pageUrl || (isHomepage ? '#services' : '/#services');
+                return (
+                  <a
+                    href={linkHref}
+                    class="flex items-center justify-between px-4 py-2.5 hover:bg-white/5 transition-colors group/item"
+                  >
+                    <div>
+                      <p class="text-sm font-medium text-white group-hover/item:text-primary-400 transition-colors">{s.name}</p>
+                      <p class="text-xs text-gray-500 line-clamp-1">{s.desc}</p>
+                    </div>
+                    {pageUrl && (
+                      <svg class="w-3.5 h-3.5 text-gray-500 group-hover/item:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                    )}
+                  </a>
+                );
+              })}
+
+              <!-- Tier 2: Conservation & Restoration -->
+              <div class="border-t border-white/5 mt-1 pt-1">
+                <p class="px-4 py-2 text-xs font-semibold text-green-400 uppercase tracking-wider">{tier2.name}</p>
+              </div>
+              {outcomeServices.map((s) => (
+                <a
+                  href={`/services/${s.slug}/`}
+                  class="flex items-center justify-between px-4 py-2.5 hover:bg-white/5 transition-colors group/item"
+                >
+                  <div>
+                    <p class="text-sm font-medium text-white group-hover/item:text-green-400 transition-colors">{s.name}</p>
+                    <p class="text-xs text-gray-500 line-clamp-1">{s.description}</p>
+                  </div>
+                  <svg class="w-3.5 h-3.5 text-gray-500 group-hover/item:text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </a>
+              ))}
+
+              <div class="border-t border-white/5 mt-1 pt-1">
+                <a href={isHomepage ? '#services' : '/#services'} class="block px-4 py-2.5 text-sm text-primary-400 hover:bg-white/5 transition-colors font-medium">
+                  View all services &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Resources dropdown -->
+        <div class="relative group" id="nav-resources-dropdown">
+          <button
+            type="button"
+            class="flex items-center gap-1 text-sm text-gray-400 hover:text-white transition-colors"
+            aria-expanded="false"
+            aria-haspopup="true"
+          >
+            Resources
+            <svg class="w-3.5 h-3.5 transition-transform group-hover:rotate-180" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+          </button>
+          <div class="absolute top-full left-1/2 -translate-x-1/2 pt-2 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200 z-50" id="nav-resources-panel">
+            <div class="bg-dark-800 border border-white/10 rounded-xl shadow-2xl w-72 py-2 overflow-hidden">
+              <p class="px-4 py-2 text-xs font-semibold text-gray-500 uppercase tracking-wider">Guides</p>
+              {topGuides.map((guide) => (
+                <a
+                  href={guide.href}
+                  class="flex items-center justify-between px-4 py-2.5 hover:bg-white/5 transition-colors group/item"
+                >
+                  <p class="text-sm font-medium text-white group-hover/item:text-primary-400 transition-colors">{guide.name}</p>
+                  <svg class="w-3.5 h-3.5 text-gray-500 group-hover/item:text-primary-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+                </a>
+              ))}
+              <div class="border-t border-white/5 mt-1 pt-1">
+                <a href="/learn/" class="block px-4 py-2.5 text-sm text-primary-400 hover:bg-white/5 transition-colors font-medium">
+                  View all resources &rarr;
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <a href="/about/" class="text-sm text-gray-400 hover:text-white transition-colors">About</a>
+        <a href="/contact/" class="text-sm text-gray-400 hover:text-white transition-colors">Contact</a>
+        <a href="/gallery/" class="text-sm text-gray-400 hover:text-white transition-colors">Gallery</a>
+        <a href={href('#areas')} class="text-sm text-gray-400 hover:text-white transition-colors">Areas</a>
+      </div>
+
+      <div class="flex items-center gap-3">
+        <a href={company.phoneHref} class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">
+          <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+          {company.phone}
+        </a>
+        <a href={ctaHref} class="bg-primary-500 hover:bg-primary-400 text-white text-sm font-bold px-5 py-2.5 rounded-lg transition-colors hidden sm:inline-flex">
+          Get Started
+        </a>
+        <!-- Mobile hamburger -->
+        <button id="nav-mobile-menu-btn" class="md:hidden w-10 h-10 flex items-center justify-center text-gray-300 hover:text-white" aria-label="Open menu">
+          <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Mobile menu panel -->
+  <div id="nav-mobile-menu" class="hidden md:hidden bg-dark-900/95 backdrop-blur-md border-t border-white/5 max-h-[80vh] overflow-y-auto">
+    <div class="px-4 py-4 space-y-1">
+      {!isHomepage && (
+        <a href="/" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Home</a>
+      )}
+
+      <!-- Mobile services accordion -->
+      <div>
+        <button
+          id="nav-mobile-services-toggle"
+          type="button"
+          class="flex items-center justify-between w-full px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+        >
+          <span>Services</span>
+          <svg id="nav-mobile-services-chevron" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div id="nav-mobile-services-list" class="hidden pl-4 space-y-0.5 pb-1">
+          <p class="px-4 pt-1 pb-1 text-xs font-semibold text-primary-400 uppercase tracking-wider">{tier1.name}</p>
+          {services.map((s) => {
+            const pageUrl = servicePageMap[s.slug];
+            const linkHref = pageUrl || (isHomepage ? '#services' : '/#services');
+            return (
+              <a
+                href={linkHref}
+                class="flex items-center justify-between px-4 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+              >
+                <span>{s.name}</span>
+              </a>
+            );
+          })}
+          <!-- Conservation & Restoration in mobile -->
+          <p class="px-4 pt-3 pb-1 text-xs font-semibold text-green-400 uppercase tracking-wider">{tier2.name}</p>
+          {outcomeServices.map((s) => (
+            <a
+              href={`/services/${s.slug}/`}
+              class="flex items-center justify-between px-4 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+            >
+              <span>{s.name}</span>
+            </a>
+          ))}
+        </div>
+      </div>
+
+      <!-- Mobile resources accordion -->
+      <div>
+        <button
+          id="nav-mobile-resources-toggle"
+          type="button"
+          class="flex items-center justify-between w-full px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors"
+        >
+          <span>Resources</span>
+          <svg id="nav-mobile-resources-chevron" class="w-4 h-4 transition-transform" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+        </button>
+        <div id="nav-mobile-resources-list" class="hidden pl-4 space-y-0.5 pb-1">
+          <p class="px-4 pt-1 pb-1 text-xs font-semibold text-gray-500 uppercase tracking-wider">Guides</p>
+          {topGuides.map((guide) => (
+            <a href={guide.href} class="block px-4 py-2.5 text-sm text-gray-400 hover:text-white hover:bg-white/5 rounded-lg transition-colors">
+              {guide.name}
+            </a>
+          ))}
+          <a href="/learn/" class="block px-4 py-2.5 text-sm text-primary-400 hover:bg-white/5 rounded-lg transition-colors font-medium">
+            View all resources &rarr;
+          </a>
+        </div>
+      </div>
+
+      <a href="/about/" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">About</a>
+      <a href="/contact/" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Contact</a>
+      <a href="/gallery/" class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Gallery</a>
+      <a href={href('#areas')} class="block px-4 py-3 text-gray-300 hover:text-white hover:bg-white/5 rounded-lg transition-colors">Areas</a>
+      <a href={ctaHref} class="block px-4 py-3 text-white font-bold bg-primary-500 hover:bg-primary-400 rounded-lg transition-colors text-center mt-2">Get Started</a>
+    </div>
+  </div>
+</nav>
+
+<script>
+  // Hamburger toggle
+  const menuBtn = document.getElementById('nav-mobile-menu-btn');
+  const mobileMenu = document.getElementById('nav-mobile-menu');
+  if (menuBtn && mobileMenu) {
+    menuBtn.addEventListener('click', () => {
+      const isOpen = !mobileMenu.classList.contains('hidden');
+      mobileMenu.classList.toggle('hidden');
+      menuBtn.innerHTML = isOpen
+        ? '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>'
+        : '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>';
+    });
+    // Close menu on link click
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => {
+        mobileMenu.classList.add('hidden');
+        menuBtn.innerHTML = '<svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16M4 18h16"></path></svg>';
+      });
+    });
+  }
+
+  // Mobile services accordion
+  const servicesToggle = document.getElementById('nav-mobile-services-toggle');
+  const servicesList = document.getElementById('nav-mobile-services-list');
+  const servicesChevron = document.getElementById('nav-mobile-services-chevron');
+  if (servicesToggle && servicesList && servicesChevron) {
+    servicesToggle.addEventListener('click', () => {
+      servicesList.classList.toggle('hidden');
+      servicesChevron.classList.toggle('rotate-180');
+    });
+  }
+
+  // Mobile resources accordion
+  const resourcesToggle = document.getElementById('nav-mobile-resources-toggle');
+  const resourcesList = document.getElementById('nav-mobile-resources-list');
+  const resourcesChevron = document.getElementById('nav-mobile-resources-chevron');
+  if (resourcesToggle && resourcesList && resourcesChevron) {
+    resourcesToggle.addEventListener('click', () => {
+      resourcesList.classList.toggle('hidden');
+      resourcesChevron.classList.toggle('rotate-180');
+    });
+  }
+
+  // Touch device: make desktop dropdowns work on tap too
+  function setupTouchDropdown(dropdownId: string, panelId: string) {
+    const dropdown = document.getElementById(dropdownId);
+    const panel = document.getElementById(panelId);
+    if (dropdown && panel) {
+      let touchOpened = false;
+      dropdown.addEventListener('touchstart', (e) => {
+        if ((e.target as HTMLElement).closest('a')) return;
+        e.preventDefault();
+        touchOpened = !touchOpened;
+        if (touchOpened) {
+          panel.style.opacity = '1';
+          panel.style.visibility = 'visible';
+        } else {
+          panel.style.opacity = '0';
+          panel.style.visibility = 'hidden';
+        }
+      }, { passive: false });
+
+      document.addEventListener('click', (e) => {
+        if (touchOpened && !dropdown.contains(e.target as Node)) {
+          touchOpened = false;
+          panel.style.opacity = '0';
+          panel.style.visibility = 'hidden';
+        }
+      });
+    }
+  }
+
+  setupTouchDropdown('nav-services-dropdown', 'nav-dropdown-panel');
+  setupTouchDropdown('nav-resources-dropdown', 'nav-resources-panel');
+</script>

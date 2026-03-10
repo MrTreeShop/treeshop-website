@@ -1,0 +1,30 @@
+---
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.png';
+import { company } from '../data/company';
+
+interface Props {
+  /** Extra bottom padding for pages with mobile sticky CTA */
+  padBottom?: boolean;
+}
+
+const { padBottom = false } = Astro.props;
+---
+
+<footer class={`border-t border-white/5 py-12 ${padBottom ? 'pb-24 md:pb-12' : ''}`}>
+  <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-3">
+        <Image src={logo} alt="TreeShop LLC" width={28} height={28} class="rounded-lg" />
+        <span class="text-sm text-gray-400">&copy; {new Date().getFullYear()} {company.name}. All rights reserved.</span>
+      </div>
+      <div class="flex gap-6">
+        <a href="/" class="text-sm text-gray-500 hover:text-gray-400 transition-colors">Home</a>
+        <a href="/about/" class="text-sm text-gray-500 hover:text-gray-400 transition-colors">About</a>
+        <a href="/contact/" class="text-sm text-gray-500 hover:text-gray-400 transition-colors">Contact</a>
+        <a href="/privacy/" class="text-sm text-gray-500 hover:text-gray-400 transition-colors">Privacy</a>
+        <a href="/terms/" class="text-sm text-gray-500 hover:text-gray-400 transition-colors">Terms</a>
+      </div>
+    </div>
+  </div>
+</footer>

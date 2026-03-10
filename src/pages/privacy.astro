@@ -1,0 +1,196 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.png';
+
+const phone = "(386) 843-5266";
+const phoneHref = "tel:+13868435266";
+const email = "office@treeshop.app";
+const lastUpdated = "January 1, 2026";
+---
+
+<Layout
+  title="Privacy Policy | TreeShop LLC"
+  description="TreeShop LLC privacy policy — how we collect, use, and protect your personal information when you use our website and services."
+>
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto fluid-px">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <a href="/" class="flex items-center">
+          <Image src={logo} alt="TreeShop LLC" width={40} height={40} class="rounded-lg" />
+        </a>
+        <div class="flex items-center gap-3">
+          <a href={phoneHref} class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            {phone}
+          </a>
+          <a href="/" class="text-sm text-gray-400 hover:text-white transition-colors">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-24 sm:pt-32 pb-16">
+    <article class="max-w-3xl mx-auto fluid-px">
+      <!-- Header -->
+      <div class="mb-12">
+        <h1 class="fluid-hero font-bold text-white mb-4">Privacy Policy</h1>
+        <p class="text-gray-400">Last updated: {lastUpdated}</p>
+        <p class="text-gray-500 text-sm mt-2">TreeShop LLC &bull; New Smyrna Beach, FL &bull; {phone} &bull; {email}</p>
+      </div>
+
+      <div class="prose prose-invert max-w-none space-y-10 text-gray-300 leading-relaxed">
+        <p>
+          TreeShop LLC ("we," "us," or "our") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains how we collect, use, disclose, and safeguard your information when you visit our website at treeshop.app or engage our services.
+        </p>
+
+        <!-- 1. INFORMATION WE COLLECT -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">1. Information We Collect</h2>
+
+          <h3 class="text-lg font-semibold text-white mt-6 mb-3">Information You Provide</h3>
+          <p>We collect information you voluntarily provide when you:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-400 text-sm">
+            <li>Request a quote or contact us via our website, phone, or email</li>
+            <li>Sign our Master Service Agreement</li>
+            <li>Use our client portal through Jobber (scheduling, invoicing, payments)</li>
+            <li>Communicate with us about a project</li>
+          </ul>
+          <p class="mt-3">This may include your name, phone number, email address, property address, and project details.</p>
+
+          <h3 class="text-lg font-semibold text-white mt-6 mb-3">Information Collected Automatically</h3>
+          <p>When you visit our website, we may automatically collect:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-400 text-sm">
+            <li>Device and browser information (type, operating system, screen resolution)</li>
+            <li>IP address and approximate geographic location</li>
+            <li>Pages visited, time spent, and referring website</li>
+            <li>Cookies and similar tracking technologies</li>
+          </ul>
+        </section>
+
+        <!-- 2. HOW WE USE YOUR INFORMATION -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">2. How We Use Your Information</h2>
+          <p>We use the information we collect to:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-400 text-sm">
+            <li>Provide quotes and respond to service inquiries</li>
+            <li>Schedule, manage, and deliver our vegetation management and land clearing services</li>
+            <li>Process payments and send invoices through Jobber</li>
+            <li>Communicate with you about your project (scheduling, updates, follow-ups)</li>
+            <li>Improve our website and services</li>
+            <li>Comply with legal obligations</li>
+          </ul>
+        </section>
+
+        <!-- 3. THIRD-PARTY SERVICES -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">3. Third-Party Services</h2>
+          <p>We use the following third-party services that may collect or process your data:</p>
+
+          <div class="mt-4 space-y-4">
+            <div class="bg-dark-800 border border-white/5 rounded-xl p-4">
+              <h4 class="text-white font-medium mb-1">Jobber</h4>
+              <p class="text-sm text-gray-400">Client relationship management, scheduling, quoting, invoicing, and payment processing. Jobber stores your contact information, project details, and payment records. See <a href="https://getjobber.com/privacy-policy/" target="_blank" rel="noopener noreferrer" class="text-primary-400 hover:text-primary-300">Jobber's Privacy Policy</a>.</p>
+            </div>
+            <div class="bg-dark-800 border border-white/5 rounded-xl p-4">
+              <h4 class="text-white font-medium mb-1">Google Analytics</h4>
+              <p class="text-sm text-gray-400">Website traffic analysis and usage patterns. Collects anonymized browsing data. See <a href="https://policies.google.com/privacy" target="_blank" rel="noopener noreferrer" class="text-primary-400 hover:text-primary-300">Google's Privacy Policy</a>.</p>
+            </div>
+            <div class="bg-dark-800 border border-white/5 rounded-xl p-4">
+              <h4 class="text-white font-medium mb-1">Vercel</h4>
+              <p class="text-sm text-gray-400">Website hosting and delivery. May collect standard server logs. See <a href="https://vercel.com/legal/privacy-policy" target="_blank" rel="noopener noreferrer" class="text-primary-400 hover:text-primary-300">Vercel's Privacy Policy</a>.</p>
+            </div>
+          </div>
+
+          <p class="mt-4 text-sm">
+            We do not sell, rent, or trade your personal information to third parties for marketing purposes.
+          </p>
+        </section>
+
+        <!-- 4. COOKIES -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">4. Cookies & Tracking</h2>
+          <p>
+            Our website may use cookies and similar technologies to improve your browsing experience and analyze site traffic. You can control cookies through your browser settings. Disabling cookies may affect some site functionality.
+          </p>
+        </section>
+
+        <!-- 5. DATA RETENTION -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">5. Data Retention</h2>
+          <p>
+            We retain your personal information for as long as necessary to fulfill the purposes described in this policy, comply with legal obligations, resolve disputes, and enforce our agreements. Project records are retained in accordance with Florida business record-keeping requirements.
+          </p>
+        </section>
+
+        <!-- 6. DATA SECURITY -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">6. Data Security</h2>
+          <p>
+            We implement reasonable administrative, technical, and physical safeguards to protect your information. Our website is served over HTTPS. Payment processing is handled by Jobber's PCI-compliant infrastructure. However, no method of electronic transmission or storage is 100% secure, and we cannot guarantee absolute security.
+          </p>
+        </section>
+
+        <!-- 7. YOUR RIGHTS -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">7. Your Rights</h2>
+          <p>You may:</p>
+          <ul class="list-disc pl-6 mt-2 space-y-1 text-gray-400 text-sm">
+            <li>Request access to the personal information we hold about you</li>
+            <li>Request correction of inaccurate information</li>
+            <li>Request deletion of your information (subject to legal retention requirements)</li>
+            <li>Opt out of marketing communications at any time</li>
+          </ul>
+          <p class="mt-3">
+            To exercise any of these rights, contact us at <a href={`mailto:${email}`} class="text-primary-400 hover:text-primary-300">{email}</a> or call <a href={phoneHref} class="text-primary-400 hover:text-primary-300">{phone}</a>.
+          </p>
+        </section>
+
+        <!-- 8. CHILDREN'S PRIVACY -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">8. Children's Privacy</h2>
+          <p>
+            Our services are not directed to individuals under the age of 18. We do not knowingly collect personal information from children. If you believe a child has provided us with personal information, please contact us and we will promptly delete it.
+          </p>
+        </section>
+
+        <!-- 9. CHANGES -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">9. Changes to This Policy</h2>
+          <p>
+            We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated "Last updated" date. Your continued use of our website or services after changes are posted constitutes acceptance of the revised policy.
+          </p>
+        </section>
+
+        <!-- 10. CONTACT -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">10. Contact Us</h2>
+          <p>If you have questions about this Privacy Policy or our data practices, contact us:</p>
+          <div class="mt-4 bg-dark-800 border border-white/5 rounded-xl p-4 text-sm text-gray-400 space-y-1">
+            <p class="text-white font-medium">TreeShop LLC</p>
+            <p>New Smyrna Beach, FL 32168</p>
+            <p>Phone: <a href={phoneHref} class="text-primary-400 hover:text-primary-300">{phone}</a></p>
+            <p>Email: <a href={`mailto:${email}`} class="text-primary-400 hover:text-primary-300">{email}</a></p>
+          </div>
+        </section>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-12">
+    <div class="max-w-7xl mx-auto fluid-px">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <Image src={logo} alt="TreeShop LLC" width={28} height={28} class="rounded-lg" />
+          <p class="text-sm text-gray-400">&copy; {new Date().getFullYear()} TreeShop LLC. All rights reserved.</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="/" class="text-sm text-gray-500 hover:text-gray-400 transition-colors">Home</a>
+          <a href="/terms/" class="text-sm text-gray-500 hover:text-gray-400 transition-colors">Terms of Service</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</Layout>

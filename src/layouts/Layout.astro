@@ -1,0 +1,71 @@
+---
+import '../styles/global.css'
+import Analytics from '@vercel/analytics/astro'
+import SpeedInsights from '@vercel/speed-insights/astro'
+
+interface Props {
+  title?: string;
+  description?: string;
+  ogImage?: string;
+}
+
+const canonicalURL = new URL(Astro.url.pathname, Astro.site || 'https://treeshop.app');
+
+const {
+  title = "TreeShop LLC | Outcome-Based Land Management | Central Florida",
+  description = "Outcome-based land management across Central Florida. Land clearing, conservation forestry, wildlife habitat restoration. CAT equipment, 500+ projects. Call (386) 843-5266.",
+  ogImage = "/og-image.jpg"
+} = Astro.props;
+
+const ogImageURL = new URL(ogImage, Astro.site || 'https://treeshop.app').href;
+---
+
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8" />
+    <link rel="icon" href="/favicon.png" type="image/png" />
+    <link rel="icon" href="/favicon.ico" sizes="32x32" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="description" content={description} />
+    <meta name="theme-color" content="#0a0a0a" />
+    <link rel="canonical" href={canonicalURL.href} />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" media="print" onload="this.media='all'" />
+    <noscript><link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap" rel="stylesheet" /></noscript>
+    <title>{title}</title>
+
+    <!-- Open Graph -->
+    <meta property="og:title" content={title} />
+    <meta property="og:description" content={description} />
+    <meta property="og:type" content="website" />
+    <meta property="og:url" content={canonicalURL.href} />
+    <meta property="og:image" content={ogImageURL} />
+    <meta property="og:site_name" content="TreeShop LLC" />
+    <meta property="og:locale" content="en_US" />
+
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content={title} />
+    <meta name="twitter:description" content={description} />
+    <meta name="twitter:image" content={ogImageURL} />
+
+    <!-- Geo targeting -->
+    <meta name="geo.region" content="US-FL" />
+    <meta name="geo.placename" content="New Smyrna Beach" />
+
+    <style>
+      /* Critical above-fold styles inlined for speed */
+      .hero-gradient {
+        background: rgba(10,10,10,0.82);
+      }
+    </style>
+  </head>
+  <body class="min-h-screen">
+    <slot />
+    <Analytics />
+    <SpeedInsights />
+  </body>
+</html>

@@ -1,0 +1,349 @@
+---
+import Layout from '../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import logo from '../assets/images/logo.png';
+
+const phone = "(386) 843-5266";
+const phoneHref = "tel:+13868435266";
+const email = "office@treeshop.app";
+---
+
+<Layout
+  title="Terms of Service | TreeShop LLC"
+  description="TreeShop LLC Master Service Agreement — terms governing all vegetation management and site development services across Central Florida."
+>
+  <!-- Navigation -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto fluid-px">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <a href="/" class="flex items-center">
+          <Image src={logo} alt="TreeShop LLC" width={40} height={40} class="rounded-lg" />
+        </a>
+        <div class="flex items-center gap-3">
+          <a href={phoneHref} class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            {phone}
+          </a>
+          <a href="/" class="text-sm text-gray-400 hover:text-white transition-colors">Back to Home</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <main class="pt-24 sm:pt-32 pb-16">
+    <article class="max-w-3xl mx-auto fluid-px">
+      <!-- Header -->
+      <div class="mb-12">
+        <h1 class="fluid-hero font-bold text-white mb-4">Terms of Service</h1>
+        <p class="text-gray-400">Master Service Agreement &bull; Effective January 1, 2026</p>
+        <p class="text-gray-500 text-sm mt-2">TreeShop LLC &bull; New Smyrna Beach, FL &bull; {phone} &bull; {email}</p>
+      </div>
+
+      <div class="prose prose-invert max-w-none space-y-10 text-gray-300 leading-relaxed">
+        <p>
+          This Master Service Agreement ("Agreement") governs all services between TreeShop LLC ("Contractor") and the client identified in the project proposal or work order ("Client"). TreeShop LLC operates with large-frame CAT Compact Track Loaders and 20-ton CAT excavators. Subcontractors may be engaged at Contractor's discretion; Contractor remains responsible for their work. All rates are non-negotiable and apply uniformly.
+        </p>
+
+        <!-- 1. SCOPE OF SERVICES -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-6">1. Scope of Services</h2>
+          <p class="mb-4">TreeShop LLC provides the following vegetation-management and site-development services. Each service is priced per Section 2 and detailed in the applicable work order.</p>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="border-b border-white/10">
+                  <th class="text-left py-3 pr-4 text-white font-semibold">Service</th>
+                  <th class="text-left py-3 text-white font-semibold">Description</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-400">
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Forestry Mulching</td>
+                  <td class="py-3">Vegetation &le;8&Prime; dia. via high-flow forestry attachments</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Land Clearing</td>
+                  <td class="py-3">Tree removal, stump/root extraction, build-ready lot prep</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Brush Hog / Heavy Mowing</td>
+                  <td class="py-3">Rotary mowing for overgrown fields, pastures, and grassy lots</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Fuel Reduction</td>
+                  <td class="py-3">Wildfire risk reduction and defensible-space creation</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Forest Stand Improvement</td>
+                  <td class="py-3">Selective vegetation management to improve native forest health and value</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Timber Stand Improvement</td>
+                  <td class="py-3">Selective treatment of timber stands to improve crop tree productivity</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Stump Grinding</td>
+                  <td class="py-3">Below-grade stump removal via specialized grinding attachments</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Grading &amp; Excavation</td>
+                  <td class="py-3">Drainage swales, retention areas, foundation prep, earth moving</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Land Maintenance</td>
+                  <td class="py-3">Regrowth control for existing clients (quarterly/semi-annual/annual)</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Debris Disposal</td>
+                  <td class="py-3">Hauling, burning, chipping, or grinding of land clearing debris</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Invasive Species Removal</td>
+                  <td class="py-3">Targeted removal of Brazilian pepper, melaleuca, and other invasives</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 font-medium text-gray-300">Commercial / Government</td>
+                  <td class="py-3">GPS-precise infrastructure work. SAM.gov registered.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </section>
+
+        <!-- 2. RATES & PRICING -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-6">2. Rates & Pricing</h2>
+          <div class="overflow-x-auto">
+            <table class="w-full text-sm border-collapse">
+              <thead>
+                <tr class="border-b border-white/10">
+                  <th class="text-left py-3 pr-4 text-white font-semibold">Item</th>
+                  <th class="text-left py-3 pr-4 text-white font-semibold">Rate</th>
+                  <th class="text-left py-3 text-white font-semibold">Details</th>
+                </tr>
+              </thead>
+              <tbody class="text-gray-400">
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">TreeShop Standard Setup</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">$2,850/day</td>
+                  <td class="py-3">CAT CTL + any high-flow attachment + daily overhead. Operator labor billed separately.</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Land Clearing Setup</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">$5,000/day</td>
+                  <td class="py-3">Excavator + CTL + overhead. Drops to $2,850/day when excavator work completes.</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Skilled Labor</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">$165/hr</td>
+                  <td class="py-3">Production hours only. Operators, groundworkers, supervisors.</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Stump Grinding</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">$450/hr</td>
+                  <td class="py-3">$450 minimum per visit. Grinding below grade for build-ready or landscape-ready sites.</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Debris Disposal &mdash; Dump Trailer</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">$450/load</td>
+                  <td class="py-3">Standard dump-trailer load. No guarantees on exact volume; estimates provided.</td>
+                </tr>
+                <tr class="border-b border-white/5">
+                  <td class="py-3 pr-4 font-medium text-gray-300">Debris Disposal &mdash; Grapple Truck</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">$850/load</td>
+                  <td class="py-3">Grapple-truck load for larger debris. Actual volume may vary.</td>
+                </tr>
+                <tr>
+                  <td class="py-3 pr-4 font-medium text-gray-300">Transport</td>
+                  <td class="py-3 pr-4 whitespace-nowrap">Pass-through</td>
+                  <td class="py-3">Billed at cost. Budget estimates included in all quotes. Class A CDL.</td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+          <div class="mt-4 bg-dark-800 border border-white/5 rounded-xl p-4 text-sm text-gray-400 space-y-2">
+            <p><span class="text-white font-medium">Volume Discounts</span> (equipment rates only): 15% off for 5+ consecutive days; 25% off for 22+ consecutive days. Forfeited if interrupted by Client.</p>
+            <p>Rates may be updated annually with 30 days' notice. Changes do not apply to contracted projects with deposits paid.</p>
+          </div>
+        </section>
+
+        <!-- 3. PAYMENT TERMS -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">3. Payment Terms</h2>
+          <p>
+            25% deposit before commencement &rarr; 25% before hauling (if applicable) &rarr; balance due on completion before demobilization. Payment via check, ACH, or credit card (+3% fee). Late invoices (14+ days): 1.5%/month. Work suspended after 7 days non-payment. Client responsible for all collection costs.
+          </p>
+        </section>
+
+        <!-- 4. PROJECT MANAGEMENT -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">4. Project Management</h2>
+          <p>
+            All operations managed through Jobber &mdash; scheduling, work orders, invoicing, and client portal. All projects begin with a detailed work order. All clients must sign this MSA before project commencement. Primary contact: Jobber, email, or phone. Response within one business day.
+          </p>
+        </section>
+
+        <!-- 5. EQUIPMENT & INSURANCE -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">5. Equipment & Insurance</h2>
+          <p>
+            CAT equipment: large-frame CTLs with high-flow hydraulics, 20-ton excavators, and professional-grade attachments. Subcontractors may be engaged at Contractor's discretion; Contractor remains responsible for quality and compliance. Insurance: General Liability $1M/$2M aggregate, Auto Liability, Workers' Comp, and Equipment Coverage. COI available on request.
+          </p>
+        </section>
+
+        <!-- 6. WORKING HOURS -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">6. Working Hours</h2>
+          <p>
+            Standard work hours are <span class="text-white font-medium">7:00 AM &ndash; 4:00 PM, Monday through Saturday</span>, with 8 billable hours per day. Work outside these hours requires prior written agreement and may incur additional charges.
+          </p>
+        </section>
+
+        <!-- 7-10 -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">7&ndash;10. Site Access, Utilities, Property Lines & Standby</h2>
+          <p>
+            <span class="text-white font-medium">Site Access:</span> Client provides clear access for heavy equipment. Client removes personal property, discloses hazards, and obtains permits before work begins. Safety perimeter enforced during operations.
+          </p>
+          <p class="mt-3">
+            <span class="text-white font-medium">Utilities:</span> TreeShop LLC calls in its own Sunshine 811 locates for public utilities. Client remains responsible for identifying all private utilities (septic, wells, electrical, irrigation, gas). TreeShop LLC is not responsible for damage to unmarked or undisclosed private utilities.
+          </p>
+          <p class="mt-3">
+            <span class="text-white font-medium">Property Lines:</span> Client marks boundaries; professional survey recommended. GPS tracking on all equipment. TreeShop LLC not responsible for boundary disputes if lines unmarked.
+          </p>
+          <p class="mt-3">
+            <span class="text-white font-medium">Standby:</span> Billed at applicable rate for Client-caused delays (access issues, unmarked utilities, incomplete prep, third-party interference).
+          </p>
+        </section>
+
+        <!-- 11. VEGETATIVE MATERIAL -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">11. Vegetative Material, Debris & Open Burning</h2>
+          <p>
+            Mulched material remains on-site unless otherwise agreed. Debris hauling: $450/load (dump trailer) or $850/load (grapple truck) &mdash; no guarantees on exact volume. Client may retain material at no charge. All disposal compliant with local regulations.
+          </p>
+          <p class="mt-3">
+            <span class="text-white font-medium">Open Burning of Debris:</span> If Client elects to burn land clearing debris on-site, Client is solely responsible for compliance with all Florida open burning regulations (FAC 62-256.700, 5I-2.006) including:
+          </p>
+          <ol class="list-[lower-alpha] pl-6 mt-2 space-y-1 text-gray-400 text-sm">
+            <li>Obtaining authorization from the Florida Forest Service (FFS) before any burning</li>
+            <li>Notifying the local fire authority</li>
+            <li>Debris was generated on the same premises &mdash; no transported material</li>
+            <li>Burning only between 9:00 AM EST and one hour before sunset</li>
+            <li>Minimum setbacks: 1,000 ft from any occupied building (other than landowner's), 100 ft from any paved public roadway, wildlands, brush, or combustible structure</li>
+            <li>Fire attended at all times with extinguishing equipment immediately available</li>
+            <li>Only vegetative debris and untreated wood &mdash; no trash, treated lumber, plastics, or hazardous materials</li>
+            <li>Favorable moisture/composition to minimize smoke</li>
+            <li>Compliance with any active county or municipal burn bans</li>
+          </ol>
+          <p class="mt-3 text-sm">
+            TreeShop LLC does not perform open burning services and assumes no liability for Client-initiated burns. Client indemnifies TreeShop LLC against all claims arising from open burning activities.
+          </p>
+        </section>
+
+        <!-- 12. WEATHER -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">12. Weather & Force Majeure</h2>
+          <p>
+            No operations in unsafe conditions. Weather delays are not breach. Rescheduled at earliest availability (no charge unless equipment mobilized on-site). Neither party liable for force majeure events.
+          </p>
+        </section>
+
+        <!-- 13. CANCELLATION -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">13. Cancellation & Rescheduling</h2>
+          <p>
+            7+ days before start: full refund. Within 7 days: deposit forfeited (valid 90 days to reschedule). After mobilization: Client owes all costs + deposit forfeited. TreeShop LLC may cancel for unsafe conditions, non-payment, or breach; unearned deposits refunded minus costs.
+          </p>
+        </section>
+
+        <!-- 14. SCOPE CHANGES -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">14. Scope Changes</h2>
+          <p>
+            Scope changes documented via Jobber change order (description, cost, timeline). Client approval required. Emergency safety changes may proceed with retroactive approval.
+          </p>
+        </section>
+
+        <!-- 15. TERMINATION -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">15. Termination</h2>
+          <p>
+            <span class="text-white font-medium">For Cause:</span> Either party may terminate for material breach (7-day cure), insolvency, or illegal conduct.
+          </p>
+          <p class="mt-3">
+            <span class="text-white font-medium">For Convenience:</span> Client may terminate anytime &mdash; responsible for completed work, 15% termination fee on remaining value, and non-refundable costs. All invoices due immediately upon termination.
+          </p>
+        </section>
+
+        <!-- 16. DISPUTE RESOLUTION -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">16. Dispute Resolution</h2>
+          <p>
+            Good faith negotiation &rarr; mediation in Volusia County (shared cost) &rarr; binding arbitration under AAA Construction Industry Rules. Prevailing party recovers attorney's fees. Exclusive venue: Volusia County, FL. Work and payments continue during proceedings.
+          </p>
+        </section>
+
+        <!-- 17. LIEN LAW -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">17. Florida Construction Lien Law</h2>
+          <p>
+            TreeShop LLC retains all rights under Chapter 713, Florida Statutes. Proper Notice to Owner served as required. Final lien waiver provided upon final payment.
+          </p>
+          <div class="mt-4 bg-dark-800 border border-white/5 rounded-xl p-4 text-xs text-gray-500 uppercase leading-relaxed">
+            <p class="font-semibold text-gray-400 mb-2">Statutory Notice</p>
+            According to Florida's Construction Lien Law (Sections 713.001&ndash;713.37, Florida Statutes), those who work on your property or provide materials and services and are not paid in full have a right to enforce their claim for payment against your property. This claim is known as a construction lien. If your contractor fails to pay subcontractors or material suppliers, those owed money may look to your property for payment, even if you have already paid your contractor. If you fail to pay your contractor, your contractor may also have a lien on your property, which could result in your property being sold to satisfy the lien.
+          </div>
+        </section>
+
+        <!-- 18. PHOTO & VIDEO RIGHTS -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">18. Photo & Video Rights</h2>
+          <p>
+            Client grants TreeShop LLC a non-exclusive, royalty-free, perpetual license to capture and use photographs and video of the project site (before, during, and after work) for marketing, portfolio, social media, and promotional purposes. No compensation is due to Client for such use. Client may revoke this license for future use by providing written notice; revocation does not apply to materials already published or distributed.
+          </p>
+        </section>
+
+        <!-- 19. WARRANTY -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">19. Warranty</h2>
+          <p>
+            TreeShop LLC provides a <span class="text-white font-medium">30-day workmanship warranty</span> from the date of project completion. During this period, Contractor will return to correct any deficiencies in workmanship at no additional cost. This warranty covers the quality of work performed and does not cover natural regrowth, acts of nature, damage caused by third parties, or conditions outside Contractor's control.
+          </p>
+        </section>
+
+        <!-- 20. GENERAL PROVISIONS -->
+        <section>
+          <h2 class="text-xl font-bold text-white mb-4">20. General Provisions</h2>
+          <p>
+            Governed by Florida law. Exclusive venue: Volusia County. This MSA + exhibits + work orders = entire agreement. Amendments by written agreement only. Severability applies. Non-waiver. Client may not assign without consent; TreeShop LLC may assign/subcontract. TreeShop LLC is an independent contractor. All notices in writing. Payment, indemnification, disputes, and lien rights survive termination.
+          </p>
+        </section>
+      </div>
+
+      <!-- Contact -->
+      <div class="mt-16 pt-10 border-t border-white/5 text-center">
+        <p class="text-gray-400 mb-2">Questions about these terms?</p>
+        <p class="text-sm text-gray-500">
+          Call <a href={phoneHref} class="text-primary-400 hover:text-primary-300">{phone}</a> or email <a href={`mailto:${email}`} class="text-primary-400 hover:text-primary-300">{email}</a>
+        </p>
+      </div>
+    </article>
+  </main>
+
+  <!-- Footer -->
+  <footer class="border-t border-white/5 py-12">
+    <div class="max-w-7xl mx-auto fluid-px">
+      <div class="flex flex-col sm:flex-row items-center justify-between gap-4">
+        <div class="flex items-center gap-3">
+          <Image src={logo} alt="TreeShop LLC" width={28} height={28} class="rounded-lg" />
+          <p class="text-sm text-gray-400">&copy; {new Date().getFullYear()} TreeShop LLC. All rights reserved.</p>
+        </div>
+        <div class="flex gap-6">
+          <a href="/" class="text-sm text-gray-500 hover:text-gray-400 transition-colors">Home</a>
+          <a href="/privacy/" class="text-sm text-gray-500 hover:text-gray-400 transition-colors">Privacy Policy</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+</Layout>

@@ -1,0 +1,81 @@
+---
+import { services } from '../data/index';
+import { company } from '../data/company';
+import { servicePageMap } from '../data/service-pages';
+
+interface Props {
+  /** Service name to show in pricing card */
+  serviceName: string;
+  /** Currently active service slug (highlighted in list) */
+  activeSlug?: string;
+  /** CTA link target */
+  ctaHref?: string;
+  /** CTA button label */
+  ctaLabel?: string;
+}
+
+const { serviceName, activeSlug, ctaHref = '#contact', ctaLabel = 'Get Free Estimate' } = Astro.props;
+---
+
+<div class="space-y-6">
+  <!-- Pricing Card -->
+  <div class="bg-dark-700 border border-white/5 rounded-2xl p-6 sticky top-24">
+    <h3 class="font-bold text-white text-lg mb-3">{serviceName}</h3>
+    <p class="text-sm text-gray-400 mb-6">Free on-site estimate for properties across Central Florida. {company.stats.projects} projects completed.</p>
+    <a href={ctaHref} class="block w-full bg-primary-500 hover:bg-primary-600 text-white text-center font-bold py-3 rounded-xl transition-colors mb-3">
+      {ctaLabel}
+    </a>
+    <a href={company.phoneHref} class="block w-full bg-white/10 hover:bg-white/15 text-white text-center font-semibold py-3 rounded-xl transition-colors">
+      Call {company.phone}
+    </a>
+  </div>
+
+  <!-- Other Services -->
+  <div class="bg-dark-700 border border-white/5 rounded-2xl p-6">
+    <h3 class="font-bold text-white mb-4">All Services</h3>
+    <ul class="space-y-2">
+      {services.map((s) => {
+        const pageUrl = servicePageMap[s.slug];
+        const linkHref = pageUrl || '/#services';
+        return (
+          <li>
+            <a
+              href={linkHref}
+              class={`block text-sm px-3 py-2 rounded-lg transition-colors ${s.slug === activeSlug ? 'bg-primary-500/10 text-primary-400 font-semibold' : 'text-gray-400 hover:text-white hover:bg-dark-600'}`}
+            >
+              {s.name}
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  </div>
+
+  <!-- Trust Signals -->
+  <div class="bg-dark-700 border border-white/5 rounded-2xl p-6">
+    <div class="flex items-center gap-1 mb-3">
+      {[...Array(5)].map(() => (
+        <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+      ))}
+    </div>
+    <p class="text-sm text-gray-400">{company.stats.googleRating} out of 5 from {company.stats.reviewCount} Google Reviews</p>
+    <div class="border-t border-white/5 mt-4 pt-4 space-y-3">
+      <div class="flex items-center gap-2 text-sm text-gray-400">
+        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        {company.stats.projects} Projects Completed
+      </div>
+      <div class="flex items-center gap-2 text-sm text-gray-400">
+        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        Fully Licensed & Insured
+      </div>
+      <div class="flex items-center gap-2 text-sm text-gray-400">
+        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        Owner-Operated
+      </div>
+      <div class="flex items-center gap-2 text-sm text-gray-400">
+        <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        CAT Equipment
+      </div>
+    </div>
+  </div>
+</div>

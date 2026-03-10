@@ -1,0 +1,259 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import MobileCTA from '../components/MobileCTA.astro';
+import { galleryImages } from '../data/gallery';
+
+const pageTitle = "Project Gallery | TreeShop LLC | Central Florida Land Management";
+const pageDesc = `Browse ${galleryImages.length}+ real project photos from TreeShop LLC. Land clearing, forestry mulching, site prep, and conservation work across Central Florida.`;
+
+const featured = galleryImages.slice(0, 8);
+---
+
+<Layout title={pageTitle} description={pageDesc}>
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://treeshop.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Gallery" }
+    ]
+  })} />
+
+  <Nav mode="subpage" />
+
+  <main class="pt-20 sm:pt-24">
+    <!-- Header -->
+    <section class="fluid-section pb-8 sm:pb-12">
+      <div class="max-w-7xl mx-auto fluid-px text-center">
+        <p class="text-primary-500 font-semibold text-sm uppercase tracking-widest mb-3">Our Work</p>
+        <h1 class="fluid-h2 font-bold text-white">Project Gallery</h1>
+        <p class="mt-4 text-gray-400 max-w-2xl mx-auto text-lg">{galleryImages.length}+ project photos — real equipment, real results across Central Florida.</p>
+      </div>
+    </section>
+
+    <!-- Featured Row: auto-scrolling horizontal loop -->
+    <section class="overflow-hidden mb-12 sm:mb-16">
+      <div class="featured-scroll">
+        <div class="featured-track">
+          {[...featured, ...featured].map((img) => (
+            <div class="featured-item">
+              <img
+                src={img.thumb}
+                alt={img.alt}
+                loading="eager"
+                class="w-full h-full object-cover rounded-xl"
+              />
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+
+    <!-- Main Grid -->
+    <section class="fluid-section pt-0">
+      <div class="max-w-7xl mx-auto fluid-px">
+        <div class="gallery-grid">
+          {galleryImages.slice(8).map((img, i) => (
+            <div
+              class={`gallery-item group relative overflow-hidden rounded-xl cursor-pointer ${(i % 7 === 0 || i % 7 === 4) ? 'span-2' : ''}`}
+              data-index={i + 8}
+            >
+              <img
+                src={img.thumb}
+                alt={img.alt}
+                loading="lazy"
+                class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+              />
+              <div class="absolute inset-0 bg-gradient-to-t from-black/40 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300"></div>
+            </div>
+          ))}
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- Lightbox -->
+  <div id="lightbox" class="fixed inset-0 z-[100] bg-black/95 hidden items-center justify-center" role="dialog" aria-label="Image viewer">
+    <!-- Close button -->
+    <button id="lb-close" class="absolute top-4 right-4 z-10 w-12 h-12 flex items-center justify-center text-white/70 hover:text-white transition-colors bg-white/10 rounded-full backdrop-blur-sm" aria-label="Close">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+    </button>
+
+    <!-- Nav arrows -->
+    <button id="lb-prev" class="absolute left-3 sm:left-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center text-white/70 hover:text-white transition-colors bg-white/10 rounded-full backdrop-blur-sm" aria-label="Previous image">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"></path></svg>
+    </button>
+    <button id="lb-next" class="absolute right-3 sm:right-6 top-1/2 -translate-y-1/2 z-10 w-12 h-12 flex items-center justify-center text-white/70 hover:text-white transition-colors bg-white/10 rounded-full backdrop-blur-sm" aria-label="Next image">
+      <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7"></path></svg>
+    </button>
+
+    <!-- Image container -->
+    <div id="lb-img-wrap" class="flex items-center justify-center w-full h-full p-12 sm:p-16">
+      <img id="lb-img" src="" alt="" class="max-w-full max-h-full object-contain rounded-lg select-none" draggable="false" />
+    </div>
+
+    <!-- Counter -->
+    <div id="lb-counter" class="absolute bottom-4 left-1/2 -translate-x-1/2 text-white/60 text-sm font-medium bg-black/50 px-4 py-1.5 rounded-full backdrop-blur-sm"></div>
+  </div>
+
+  <MobileCTA />
+  <Footer />
+</Layout>
+
+<style>
+  /* Featured scrolling row */
+  .featured-scroll {
+    width: 100%;
+    overflow: hidden;
+  }
+  .featured-track {
+    display: flex;
+    gap: 1rem;
+    width: max-content;
+    animation: scroll-featured 40s linear infinite;
+  }
+  .featured-item {
+    width: 280px;
+    height: 200px;
+    flex-shrink: 0;
+  }
+  @media (min-width: 640px) {
+    .featured-item {
+      width: 360px;
+      height: 240px;
+    }
+  }
+  @keyframes scroll-featured {
+    0% { transform: translateX(0); }
+    100% { transform: translateX(-50%); }
+  }
+  .featured-scroll:hover .featured-track {
+    animation-play-state: paused;
+  }
+
+  /* Gallery grid */
+  .gallery-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.75rem;
+  }
+  @media (min-width: 640px) {
+    .gallery-grid {
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1rem;
+    }
+  }
+  @media (min-width: 1024px) {
+    .gallery-grid {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  .gallery-item {
+    height: 200px;
+  }
+  @media (min-width: 640px) {
+    .gallery-item {
+      height: 240px;
+    }
+  }
+  .gallery-item.span-2 {
+    grid-column: span 2;
+  }
+
+  /* Lightbox */
+  #lightbox.active {
+    display: flex;
+  }
+  #lb-img {
+    transition: opacity 0.2s ease;
+  }
+</style>
+
+<script define:vars={{ images: galleryImages }}>
+  const lightbox = document.getElementById('lightbox');
+  const lbImg = document.getElementById('lb-img');
+  const lbCounter = document.getElementById('lb-counter');
+  const lbClose = document.getElementById('lb-close');
+  const lbPrev = document.getElementById('lb-prev');
+  const lbNext = document.getElementById('lb-next');
+  const lbImgWrap = document.getElementById('lb-img-wrap');
+
+  let currentIndex = 0;
+  let touchStartX = 0;
+  let touchEndX = 0;
+
+  function openLightbox(index) {
+    currentIndex = index;
+    updateImage();
+    lightbox.classList.add('active');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeLightbox() {
+    lightbox.classList.remove('active');
+    document.body.style.overflow = '';
+  }
+
+  function updateImage() {
+    const img = images[currentIndex];
+    lbImg.style.opacity = '0';
+    setTimeout(() => {
+      lbImg.src = img.src;
+      lbImg.alt = img.alt;
+      lbImg.style.opacity = '1';
+    }, 100);
+    lbCounter.textContent = `${currentIndex + 1} / ${images.length}`;
+  }
+
+  function nextImage() {
+    currentIndex = (currentIndex + 1) % images.length;
+    updateImage();
+  }
+
+  function prevImage() {
+    currentIndex = (currentIndex - 1 + images.length) % images.length;
+    updateImage();
+  }
+
+  // Click handlers on grid items
+  document.querySelectorAll('.gallery-item').forEach((item) => {
+    item.addEventListener('click', () => {
+      const index = parseInt(item.dataset.index, 10);
+      openLightbox(index);
+    });
+  });
+
+  // Lightbox controls
+  lbClose.addEventListener('click', closeLightbox);
+  lbPrev.addEventListener('click', prevImage);
+  lbNext.addEventListener('click', nextImage);
+
+  // Close on backdrop click (not on img or controls)
+  lbImgWrap.addEventListener('click', (e) => {
+    if (e.target === lbImgWrap) closeLightbox();
+  });
+
+  // Keyboard navigation
+  document.addEventListener('keydown', (e) => {
+    if (!lightbox.classList.contains('active')) return;
+    if (e.key === 'Escape') closeLightbox();
+    if (e.key === 'ArrowRight') nextImage();
+    if (e.key === 'ArrowLeft') prevImage();
+  });
+
+  // Touch/swipe support
+  lbImgWrap.addEventListener('touchstart', (e) => {
+    touchStartX = e.changedTouches[0].screenX;
+  }, { passive: true });
+
+  lbImgWrap.addEventListener('touchend', (e) => {
+    touchEndX = e.changedTouches[0].screenX;
+    const diff = touchStartX - touchEndX;
+    if (Math.abs(diff) > 50) {
+      if (diff > 0) nextImage();
+      else prevImage();
+    }
+  }, { passive: true });
+</script>

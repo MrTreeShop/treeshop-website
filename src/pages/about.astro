@@ -1,0 +1,118 @@
+---
+import Layout from '../layouts/Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import MobileCTA from '../components/MobileCTA.astro';
+import ContactSection from '../components/ContactSection.astro';
+import { company } from '../data/company';
+
+
+const pageTitle = "About TreeShop LLC | Outcome-Based Land Management | Central Florida";
+const pageDesc = `TreeShop LLC — founded in ${company.founded} by Jeremiah & Lacey Anderson. Outcome-based land management across ${company.stats.counties} Florida counties. ${company.stats.projects} projects completed.`;
+---
+
+<Layout title={pageTitle} description={pageDesc} ogImage="/og-about.webp">
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://treeshop.app/" },
+      { "@type": "ListItem", "position": 2, "name": "About" }
+    ]
+  })} />
+
+  <Nav mode="subpage" ctaHref="#contact" />
+
+  <!-- HERO -->
+  <section class="pt-20 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center gap-2 text-sm text-gray-500 pt-8 sm:pt-12 mb-8">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <span class="text-gray-300">About</span>
+      </nav>
+
+      <div class="max-w-3xl pb-16 sm:pb-20">
+        <div class="inline-flex items-center gap-2 bg-green-500/10 border border-green-500/20 rounded-full px-4 py-1.5 mb-6">
+          <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+          <span class="text-sm text-green-400">Founded {company.founded} &middot; {company.address.city}, FL</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6">
+          Outcome-Based Land Management
+        </h1>
+
+        <p class="text-lg text-gray-400 mb-8 max-w-2xl">
+          TreeShop isn't a company that shows up with equipment and asks "where do you want us to start?" We're a land management company that starts with your goals — and works backward to build a plan that delivers measurable results.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOUNDERS -->
+  <section class="py-16 sm:py-24 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="max-w-3xl">
+        <p class="text-primary-500 font-semibold text-sm uppercase tracking-widest mb-3">The People</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Jeremiah & Lacey Anderson</h2>
+        <div class="space-y-4 text-gray-400 leading-relaxed">
+          <p>
+            Jeremiah Anderson has spent the last 10 years doing land management work full-time across Central Florida — reading terrain, running heavy equipment, and solving problems on properties ranging from 5-acre residential lots to 1,000+ acre timber tracts. {company.founded} marked the start of TreeShop, and every year since has been spent in the field.
+          </p>
+          <p>
+            That's {company.stats.projects} projects across {company.stats.counties} Florida counties. Not subbed out, not supervised from a truck — Jeremiah operates every piece of equipment and walks every project from the initial estimate through final walkthrough. Lacey manages operations, client communication, and the business systems that keep projects running on schedule.
+          </p>
+          <p>
+            Owner-operated means you're never chasing down a project manager or wondering who's going to show up. The person who gave you the estimate is the same person running the equipment and the same person doing the final walkthrough.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EQUIPMENT -->
+  <section class="py-16 sm:py-24 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <p class="text-primary-500 font-semibold text-sm uppercase tracking-widest mb-3">Equipment</p>
+      <h2 class="text-3xl sm:text-4xl font-bold text-white mb-6">Professional-Grade CAT Equipment</h2>
+      <div class="max-w-3xl space-y-4 text-gray-400 leading-relaxed">
+        <p>
+          TreeShop deploys CAT large-frame track loaders equipped with high-flow hydraulics and purpose-built forestry mulcher heads including Fecon and Diamond attachments. For excavation and heavy clearing, we run 20+ ton CAT excavators with grapple rakes, thumbs, and specialized land clearing attachments.
+        </p>
+        <p>
+          This isn't a skid steer with a brush cutter bolted on — it's production-grade iron designed specifically for Florida land management. Low ground pressure tracks for soft soils, serious pushing power for dense vegetation, and the hydraulic capacity to drive mulcher heads at full RPM through hardwood.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- STATS -->
+  <section class="border-y border-white/5 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-2 lg:grid-cols-4">
+        <div class="py-8 sm:py-12 px-4 sm:px-6 text-center border-r border-white/5">
+          <p class="text-3xl sm:text-4xl font-black text-white tabular-nums">{company.stats.yearsExperience}</p>
+          <p class="text-sm text-gray-400 mt-1">Years in the Field</p>
+        </div>
+        <div class="py-8 sm:py-12 px-4 sm:px-6 text-center lg:border-r lg:border-white/5">
+          <p class="text-3xl sm:text-4xl font-black text-white tabular-nums">{company.stats.projects}</p>
+          <p class="text-sm text-gray-400 mt-1">Projects Completed</p>
+        </div>
+        <div class="py-8 sm:py-12 px-4 sm:px-6 text-center border-t border-white/5 lg:border-t-0 border-r border-white/5">
+          <p class="text-3xl sm:text-4xl font-black text-white tabular-nums">{company.stats.counties}</p>
+          <p class="text-sm text-gray-400 mt-1">Counties Served</p>
+        </div>
+        <div class="py-8 sm:py-12 px-4 sm:px-6 text-center border-t border-white/5 lg:border-t-0">
+          <p class="text-3xl sm:text-4xl font-black text-white tabular-nums">{company.stats.googleRating}</p>
+          <p class="text-sm text-gray-400 mt-1">Google Rating</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactSection />
+
+  <Footer padBottom={true} />
+
+  <MobileCTA />
+</Layout>

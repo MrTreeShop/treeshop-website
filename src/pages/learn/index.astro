@@ -1,0 +1,51 @@
+---
+import { getCollection } from 'astro:content';
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import Footer from '../../components/Footer.astro';
+import MobileCTA from '../../components/MobileCTA.astro';
+import Breadcrumbs from '../../components/Breadcrumbs.astro';
+import GuideCard from '../../components/GuideCard.astro';
+
+const guides = await getCollection('guides', ({ data }) => !data.draft);
+const sorted = guides.sort((a, b) => a.data.pubDate.valueOf() - b.data.pubDate.valueOf());
+---
+
+<Layout title="Learn | Land Management Guides | TreeShop LLC" description="In-depth guides on forestry mulching, prescribed fire, EQIP cost-share, wildlife habitat restoration, and land management in the Southeast.">
+  <Nav mode="subpage" ctaHref="#contact" />
+
+  <div class="pt-20 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={[{ label: 'Learn' }]} />
+    </div>
+  </div>
+
+  <section class="bg-dark-900 pb-16 sm:pb-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="mb-12">
+        <h1 class="text-3xl sm:text-4xl lg:text-5xl font-black text-white mb-4">Land Management Guides</h1>
+        <p class="text-lg text-gray-400 max-w-2xl">In-depth guides on forestry mulching, prescribed fire, EQIP cost-share, wildlife habitat, and more. Written for southeastern landowners by working land managers.</p>
+      </div>
+
+      {sorted.length > 0 ? (
+        <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {sorted.map((guide) => (
+            <GuideCard
+              title={guide.data.title}
+              description={guide.data.description}
+              slug={guide.id.replace(/\.mdx?$/, '')}
+            />
+          ))}
+        </div>
+      ) : (
+        <div class="text-center py-16">
+          <p class="text-gray-400 text-lg">Guides coming soon. Check back shortly!</p>
+        </div>
+      )}
+
+    </div>
+  </section>
+
+  <Footer padBottom={true} />
+  <MobileCTA />
+</Layout>

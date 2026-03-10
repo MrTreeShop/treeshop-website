@@ -1,0 +1,309 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import logo from '../../../assets/images/logo.png';
+import { counties, services } from '../../../data/index';
+import type { County } from '../../../data/types';
+import { company } from '../../../data/company';
+import ContactSection from '../../../components/ContactSection.astro';
+import Footer from '../../../components/Footer.astro';
+import MobileCTA from '../../../components/MobileCTA.astro';
+
+export function getStaticPaths() {
+  return counties.map((county) => ({
+    params: { county: county.slug },
+    props: { county },
+  }));
+}
+
+const { county } = Astro.props as { county: County };
+const allServices = services;
+const cities = county.cities;
+
+const pageTitle = `Land Clearing & Forestry Mulching ${county.name} County FL | TreeShop LLC`;
+const pageDesc = `Professional land clearing, forestry mulching & tree services in ${county.name} County, Florida. Serving ${cities.slice(0, 3).join(', ')} & more. 500+ projects. Call (386) 843-5266.`;
+---
+
+<Layout title={pageTitle} description={pageDesc} ogImage="/og-county.jpg">
+  <!-- Schema Markup -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "LocalBusiness",
+    "name": "TreeShop LLC",
+    "telephone": "+13868435266",
+    "email": "office@treeshop.app",
+    "url": `https://treeshop.app/areas/${county.slug}/`,
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "New Smyrna Beach",
+      "addressRegion": "FL",
+      "postalCode": "32168"
+    },
+    "geo": {
+      "@type": "GeoCoordinates",
+      "latitude": county.geo?.latitude ?? 29.028,
+      "longitude": county.geo?.longitude ?? -81.065
+    },
+    "aggregateRating": {
+      "@type": "AggregateRating",
+      "ratingValue": "4.8",
+      "reviewCount": "97"
+    },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": `${county.name} County, FL`
+    },
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": `Land Clearing Services in ${county.name} County`,
+      "itemListElement": allServices.map(s => ({
+        "@type": "Offer",
+        "itemOffered": {
+          "@type": "Service",
+          "name": s.name,
+          "description": s.desc
+        }
+      }))
+    }
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://treeshop.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Service Areas", "item": "https://treeshop.app/#areas" },
+      { "@type": "ListItem", "position": 3, "name": `${county.name} County` }
+    ]
+  })} />
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <a href="/" class="flex items-center">
+          <Image src={logo} alt="TreeShop LLC" width={40} height={40} class="rounded-lg" />
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="/" class="text-sm text-gray-400 hover:text-white transition-colors">Home</a>
+          <a href="/#services" class="text-sm text-gray-400 hover:text-white transition-colors">Services</a>
+          <a href="/#work" class="text-sm text-gray-400 hover:text-white transition-colors">Our Work</a>
+          <a href="/#reviews" class="text-sm text-gray-400 hover:text-white transition-colors">Reviews</a>
+          <a href="/#areas" class="text-sm text-gray-400 hover:text-white transition-colors">Areas</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href={company.phoneHref} class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            {company.phone}
+          </a>
+          <a href="#contact" class="bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+            Get Estimate
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="pt-28 sm:pt-36 pb-16 sm:pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <a href="/#areas" class="hover:text-white transition-colors">Service Areas</a>
+        <span>/</span>
+        <span class="text-gray-300">{county.name} County</span>
+      </nav>
+
+      <div class="max-w-4xl">
+        <div class="inline-flex items-center gap-2 bg-primary-500/10 border border-primary-500/20 rounded-full px-4 py-1.5 mb-6">
+          <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+          <span class="text-sm text-primary-400">{county.name} County, FL{county.driveTime ? ` · ${county.driveTime} from base` : ''}</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6">
+          Land Clearing &<br />Tree Services in<br />{county.name} County, FL
+        </h1>
+
+        <p class="text-lg text-gray-400 mb-8 max-w-2xl">
+          {county.terrain.split('.').slice(0, 2).join('.')}. TreeShop LLC provides professional land clearing, forestry mulching, and site preparation across {county.name} County — serving {cities.slice(0, 5).join(', ')}{cities.length > 5 ? `, and ${cities.length - 5} more communities` : ''}.
+        </p>
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#contact" class="inline-flex items-center justify-center bg-primary-500 hover:bg-primary-600 text-white font-bold text-lg px-8 py-4 rounded-xl transition-colors">
+            Get Free Estimate
+          </a>
+          <a href={company.phoneHref} class="inline-flex items-center justify-center bg-white/10 hover:bg-white/15 text-white font-semibold text-lg px-8 py-4 rounded-xl border border-white/10 transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            Call {company.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICES GRID -->
+  <section class="py-16 sm:py-24 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-3xl sm:text-4xl font-black text-white mb-4">Our Services in {county.name} County</h2>
+      <p class="text-lg text-gray-400 mb-12 max-w-3xl">{county.projectTypes}</p>
+
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+        {allServices.map((s) => (
+          <a href={`/areas/${county.slug}/${s.slug}/`} class="group bg-dark-700 border border-white/5 hover:border-primary-500/30 rounded-2xl p-6 transition-all hover:bg-dark-700/80">
+            <h3 class="text-lg font-bold text-white mb-2 group-hover:text-primary-400 transition-colors">{s.name}</h3>
+            <p class="text-sm text-gray-400 mb-4 line-clamp-2">{s.desc}</p>
+            <div class="flex items-center justify-end">
+              <span class="text-primary-400 group-hover:text-primary-300 transition-colors text-sm font-semibold">Learn more &rarr;</span>
+            </div>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- VIDEO EMBED (conditional) -->
+  {county.youtubeVideoId && (
+    <section class="py-16 sm:py-24">
+      <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">Land Clearing in {county.name} County</h2>
+        <div class="relative w-full rounded-2xl overflow-hidden border border-white/10" style="padding-bottom: 56.25%;">
+          <iframe
+            src={`https://www.youtube.com/embed/${county.youtubeVideoId}`}
+            title={`Land clearing in ${county.name} County, FL`}
+            class="absolute inset-0 w-full h-full"
+            allowfullscreen
+            loading="lazy"
+          ></iframe>
+        </div>
+      </div>
+    </section>
+  )}
+
+  <!-- ABOUT THE AREA -->
+  <section class={`py-16 sm:py-24 ${county.youtubeVideoId ? 'bg-dark-800' : ''}`}>
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-12">
+        <div>
+          <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">About {county.name} County</h2>
+          <p class="text-gray-400 leading-relaxed mb-4">{county.terrain}</p>
+          <p class="text-gray-400 leading-relaxed mb-4">{county.demandDrivers}</p>
+          <p class="text-gray-400 leading-relaxed">{county.environmental}</p>
+        </div>
+        <div class="space-y-6">
+          <!-- Quick Facts -->
+          <div class="bg-dark-700 border border-white/5 rounded-2xl p-6">
+            <h3 class="font-bold text-white mb-4">{county.name} County Quick Facts</h3>
+            <div class="space-y-3">
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-400">Population</span>
+                <span class="text-sm text-white font-semibold">{county.population}</span>
+              </div>
+              <div class="border-t border-white/5"></div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-400">Distance from Base</span>
+                <span class="text-sm text-white font-semibold">{county.driveTime}</span>
+              </div>
+              <div class="border-t border-white/5"></div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-400">Communities Served</span>
+                <span class="text-sm text-white font-semibold">{cities.length}+</span>
+              </div>
+              <div class="border-t border-white/5"></div>
+              <div class="flex justify-between items-center">
+                <span class="text-sm text-gray-400">Transport Level</span>
+                <span class="text-sm text-white font-semibold">{county.transport}</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Soil & Vegetation -->
+          <div class="bg-dark-700 border border-white/5 rounded-2xl p-6">
+            <h3 class="font-bold text-white mb-3">Common Vegetation</h3>
+            <div class="flex flex-wrap gap-2 mb-4">
+              {county.vegetation.map((v: string) => (
+                <span class="bg-dark-900/50 text-gray-300 text-xs px-3 py-1 rounded-full">{v}</span>
+              ))}
+            </div>
+            <p class="text-sm text-gray-400"><strong class="text-gray-300">Soil:</strong> {county.soilTypes}</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CITIES -->
+  <section class="py-16 sm:py-24 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">Communities We Serve in {county.name} County</h2>
+      <div class="flex flex-wrap gap-2 mb-8">
+        {cities.map((city: string) => (
+          <span class="bg-dark-700 border border-white/5 text-gray-300 text-sm px-4 py-2 rounded-full">{city}</span>
+        ))}
+      </div>
+
+      <!-- Common Project Types -->
+      <h3 class="text-xl font-bold text-white mb-4 mt-12">Common Projects in {county.name} County</h3>
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3">
+        {county.commonProjects.map((project: string) => (
+          <div class="flex items-center gap-2 text-gray-400 text-sm">
+            <svg class="w-4 h-4 text-primary-400 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+            {project}
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- TRUST + CTA -->
+  <section class="py-16 sm:py-24">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="bg-dark-700 border border-white/5 rounded-2xl p-8 sm:p-12">
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 items-center">
+          <div>
+            <h2 class="text-3xl font-black text-white mb-4">Ready to Clear Your {county.name} County Property?</h2>
+            <p class="text-gray-400 mb-6">Get a free on-site estimate from TreeShop LLC. Owner Jeremiah Anderson will walk your property and provide transparent T&M pricing for your project.</p>
+            <div class="flex flex-col sm:flex-row gap-4">
+              <a href="#contact" class="inline-flex items-center justify-center bg-primary-500 hover:bg-primary-600 text-white font-bold px-8 py-4 rounded-xl transition-colors">
+                Get Free Estimate
+              </a>
+              <a href={company.phoneHref} class="inline-flex items-center justify-center bg-white/10 hover:bg-white/15 text-white font-semibold px-8 py-4 rounded-xl border border-white/10 transition-colors">
+                Call {company.phone}
+              </a>
+            </div>
+          </div>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="bg-dark-900/50 rounded-xl p-4 text-center">
+              <div class="text-2xl font-black text-primary-400">4.8</div>
+              <div class="flex items-center justify-center gap-0.5 my-1">
+                {[...Array(5)].map(() => (
+                  <svg class="w-4 h-4 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                ))}
+              </div>
+              <p class="text-xs text-gray-500">97 Google Reviews</p>
+            </div>
+            <div class="bg-dark-900/50 rounded-xl p-4 text-center">
+              <div class="text-2xl font-black text-primary-400">500+</div>
+              <p class="text-xs text-gray-500 mt-1">Projects Completed</p>
+            </div>
+            <div class="bg-dark-900/50 rounded-xl p-4 text-center">
+              <div class="text-2xl font-black text-green-400">32</div>
+              <p class="text-xs text-gray-500 mt-1">Counties Served</p>
+            </div>
+            <div class="bg-dark-900/50 rounded-xl p-4 text-center">
+              <div class="text-2xl font-black text-green-400">CAT</div>
+              <p class="text-xs text-gray-500 mt-1">Equipment Fleet</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactSection heading={`Start Your ${county.name} County Project`} />
+
+  <Footer padBottom={true} />
+
+  <MobileCTA />
+</Layout>

@@ -1,0 +1,343 @@
+---
+import Layout from '../../../layouts/Layout.astro';
+import { Image } from 'astro:assets';
+import logo from '../../../assets/images/logo.png';
+import { counties, services } from '../../../data/index';
+import type { County, Service } from '../../../data/types';
+import { company } from '../../../data/company';
+import ContactSection from '../../../components/ContactSection.astro';
+import Footer from '../../../components/Footer.astro';
+import MobileCTA from '../../../components/MobileCTA.astro';
+
+export function getStaticPaths() {
+  const paths: any[] = [];
+  for (const county of counties) {
+    for (const service of services) {
+      paths.push({
+        params: { county: county.slug, service: service.slug },
+        props: { county, service },
+      });
+    }
+  }
+  return paths;
+}
+
+const { county, service } = Astro.props as { county: County; service: Service };
+const allServices = services;
+const cities = county.cities;
+const sc = county.serviceContent?.[service.slug];
+
+// Generate FAQs with unique county content
+const faqs = [
+  {
+    q: `How do I get an estimate for ${service.name.toLowerCase()} in ${county.name} County?`,
+    a: `Contact us for a free on-site estimate. We walk your ${county.name} County property and assess terrain, vegetation density, and accessibility to provide an accurate quote. Every property in ${county.name} County is different — ${county.terrain.split('.')[0].toLowerCase().trim()} conditions mean each estimate reflects your specific conditions.`
+  },
+  {
+    q: `Do you need permits for ${service.name.toLowerCase()} in ${county.name} County?`,
+    a: county.permits
+  },
+  {
+    q: `What equipment do you use for ${service.name.toLowerCase()} in ${county.name} County?`,
+    a: `TreeShop deploys production-grade CAT track loaders, 20+ ton excavators, and specialized forestry mulcher heads including Fecon attachments. For ${county.name} County properties with ${county.vegetation.slice(0, 3).join(', ')}, our equipment is purpose-built to handle the local conditions efficiently. ${county.soilTypes.split('.')[0]}.`
+  },
+  {
+    q: `How long does ${service.name.toLowerCase()} take in ${county.name} County?`,
+    a: `Project timelines in ${county.name} County depend on acreage, vegetation density, and terrain. Most residential lots (under 1 acre) are completed in 1-3 days. Larger parcels with dense ${county.vegetation[0]?.toLowerCase() || 'vegetation'} and ${county.vegetation[1]?.toLowerCase() || 'brush'} take proportionally longer. We provide timeline estimates during your free on-site assessment.`
+  },
+  {
+    q: `Is TreeShop licensed to work in ${county.name} County?`,
+    a: `Yes. TreeShop LLC is fully licensed and insured to operate across all 32 counties in our Central Florida service area, including ${county.name} County. We carry comprehensive general liability and workers' compensation insurance. Owner Jeremiah Anderson personally oversees every project from estimate through final walkthrough.`
+  },
+];
+
+const pageTitle = `${service.name} ${county.name} County FL | TreeShop LLC`;
+const pageDesc = `Professional ${service.name.toLowerCase()} in ${county.name} County, Florida. CAT equipment, 500+ projects completed. Serving ${cities.slice(0, 3).join(', ')} & more. Free estimates. Call (386) 843-5266.`;
+---
+
+<Layout title={pageTitle} description={pageDesc} ogImage="/og-county.jpg">
+  <!-- Schema Markup -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": `${service.name} in ${county.name} County, FL`,
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": "TreeShop LLC",
+      "telephone": "+13868435266",
+      "email": "office@treeshop.app",
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "New Smyrna Beach",
+        "addressRegion": "FL",
+        "postalCode": "32168"
+      },
+      "geo": {
+        "@type": "GeoCoordinates",
+        "latitude": county.geo?.latitude ?? 29.028,
+        "longitude": county.geo?.longitude ?? -81.065
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "97"
+      }
+    },
+    "areaServed": {
+      "@type": "AdministrativeArea",
+      "name": `${county.name} County, FL`
+    },
+    "description": pageDesc
+  })} />
+
+  <!-- FAQ Schema -->
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": faqs.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+    }))
+  })} />
+
+  <!-- NAV -->
+  <nav class="fixed top-0 left-0 right-0 z-50 bg-dark-900/90 backdrop-blur-md border-b border-white/5">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="flex items-center justify-between h-16 sm:h-20">
+        <a href="/" class="flex items-center">
+          <Image src={logo} alt="TreeShop LLC" width={40} height={40} class="rounded-lg" />
+        </a>
+        <div class="hidden md:flex items-center gap-8">
+          <a href="/" class="text-sm text-gray-400 hover:text-white transition-colors">Home</a>
+          <a href="/#services" class="text-sm text-gray-400 hover:text-white transition-colors">Services</a>
+          <a href="/#work" class="text-sm text-gray-400 hover:text-white transition-colors">Our Work</a>
+          <a href="/#reviews" class="text-sm text-gray-400 hover:text-white transition-colors">Reviews</a>
+          <a href="/#areas" class="text-sm text-gray-400 hover:text-white transition-colors">Areas</a>
+        </div>
+        <div class="flex items-center gap-3">
+          <a href={company.phoneHref} class="hidden sm:inline-flex items-center gap-2 text-sm font-medium text-gray-300 hover:text-white transition-colors">
+            <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            {company.phone}
+          </a>
+          <a href="#contact" class="bg-primary-500 hover:bg-primary-600 text-white text-sm font-semibold px-5 py-2.5 rounded-lg transition-colors">
+            Get Estimate
+          </a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- HERO -->
+  <section class="pt-28 sm:pt-36 pb-16 sm:pb-20">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <!-- Breadcrumbs -->
+      <nav class="flex items-center gap-2 text-sm text-gray-500 mb-8">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <a href="/#areas" class="hover:text-white transition-colors">Service Areas</a>
+        <span>/</span>
+        <a href={`/areas/${county.slug}/`} class="hover:text-white transition-colors">{county.name} County</a>
+        <span>/</span>
+        <span class="text-gray-300">{service.name}</span>
+      </nav>
+
+      <div class="max-w-4xl">
+        <div class="inline-flex items-center gap-2 bg-primary-500/10 border border-primary-500/20 rounded-full px-4 py-1.5 mb-6">
+          <span class="w-2 h-2 bg-green-400 rounded-full"></span>
+          <span class="text-sm text-primary-400">{county.name} County, FL{county.driveTime ? ` · ${county.driveTime} from base` : ''}</span>
+        </div>
+
+        <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-6">
+          {service.name} in<br />{county.name} County, FL
+        </h1>
+
+        {sc ? (
+          <p class="text-lg text-gray-400 mb-8 max-w-2xl">
+            {sc.intro} Serving {cities.slice(0, 4).join(', ')}{cities.length > 4 ? `, and ${cities.length - 4} more communities` : ''} across {county.name} County.
+          </p>
+        ) : (
+          <p class="text-lg text-gray-400 mb-8 max-w-2xl">
+            Professional {service.name.toLowerCase()} serving {cities.slice(0, 4).join(', ')}{cities.length > 4 ? `, and ${cities.length - 4} more communities` : ''} across {county.name} County. CAT equipment, data-driven pricing from 500+ completed projects.
+          </p>
+        )}
+
+        <div class="flex flex-col sm:flex-row gap-4">
+          <a href="#contact" class="inline-flex items-center justify-center bg-primary-500 hover:bg-primary-600 text-white font-bold text-lg px-8 py-4 rounded-xl transition-colors">
+            Get Free Estimate
+          </a>
+          <a href={company.phoneHref} class="inline-flex items-center justify-center bg-white/10 hover:bg-white/15 text-white font-semibold text-lg px-8 py-4 rounded-xl border border-white/10 transition-colors">
+            <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+            Call {company.phone}
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- SERVICE DETAILS -->
+  <section class="py-16 sm:py-24 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <!-- Main Content -->
+        <div class="lg:col-span-2 space-y-12">
+          <!-- About this service -->
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Why {service.name} in {county.name} County</h2>
+            <p class="text-gray-400 leading-relaxed mb-4">{service.desc}</p>
+            {sc && (
+              <p class="text-gray-400 leading-relaxed mb-4">{sc.whyHere}</p>
+            )}
+            <p class="text-gray-400 leading-relaxed mb-4">
+              {county.terrain}
+            </p>
+            <p class="text-gray-400 leading-relaxed">
+              {county.projectTypes} {county.demandDrivers}
+            </p>
+          </div>
+
+          <!-- Our Process -->
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Our {service.name} Process in {county.name} County</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-dark-700 rounded-xl p-6 border border-white/5">
+                <div class="text-2xl font-black text-primary-400 mb-2">01</div>
+                <h3 class="font-bold text-white mb-1">Free Estimate</h3>
+                <p class="text-sm text-gray-400">We assess your {county.name} County property in person — evaluating terrain, vegetation density, and equipment access to deliver an accurate T&M quote.</p>
+              </div>
+              <div class="bg-dark-700 rounded-xl p-6 border border-white/5">
+                <div class="text-2xl font-black text-primary-400 mb-2">02</div>
+                <h3 class="font-bold text-white mb-1">MSA Agreement</h3>
+                <p class="text-sm text-gray-400">Clear scope, timeline, and expectations documented in our Master Service Agreement before any equipment rolls. No surprises, no hidden charges.</p>
+              </div>
+              <div class="bg-dark-700 rounded-xl p-6 border border-white/5">
+                <div class="text-2xl font-black text-primary-400 mb-2">03</div>
+                <h3 class="font-bold text-white mb-1">Production</h3>
+                <p class="text-sm text-gray-400">CAT track loaders and 20+ ton excavators mobilize to your {county.name} County site. Production-grade equipment means faster timelines and cleaner results.</p>
+              </div>
+              <div class="bg-dark-700 rounded-xl p-6 border border-white/5">
+                <div class="text-2xl font-black text-primary-400 mb-2">04</div>
+                <h3 class="font-bold text-white mb-1">Final Walkthrough</h3>
+                <p class="text-sm text-gray-400">Owner Jeremiah Anderson walks the finished project with you to confirm every detail meets expectations before we close out the job.</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Environmental Considerations -->
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Environmental Considerations in {county.name} County</h2>
+            <p class="text-gray-400 leading-relaxed mb-4">{county.environmental}</p>
+            {county.protectedSpecies.length > 0 && (
+              <p class="text-gray-400 leading-relaxed mb-4">
+                <strong class="text-gray-300">Protected species:</strong> {county.name} County is home to {county.protectedSpecies.join(', ')}. Pre-clearing wildlife surveys may be required depending on habitat type and project scope.
+              </p>
+            )}
+            {county.waterways.length > 0 && (
+              <p class="text-gray-400 leading-relaxed mb-4">
+                <strong class="text-gray-300">Waterways & buffers:</strong> Properties near {county.waterways.join(', ')} may require setback buffers and water management district permits. TreeShop works within all required buffer zones.
+              </p>
+            )}
+            <p class="text-gray-400 leading-relaxed">
+              <strong class="text-gray-300">Soil conditions:</strong> {county.soilTypes}
+            </p>
+          </div>
+
+          <!-- Cities We Serve -->
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">{service.name} Near You in {county.name} County</h2>
+            <p class="text-gray-400 mb-4">TreeShop provides professional {service.name.toLowerCase()} across {county.name} County, including:</p>
+            <div class="flex flex-wrap gap-2">
+              {cities.map((city: string) => (
+                <span class="bg-dark-700 border border-white/5 text-gray-300 text-sm px-4 py-2 rounded-full">
+                  {city}
+                </span>
+              ))}
+            </div>
+          </div>
+
+          <!-- FAQs -->
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">{service.name} FAQ — {county.name} County</h2>
+            <div class="space-y-4">
+              {faqs.map((faq) => (
+                <details class="group bg-dark-700 border border-white/5 rounded-xl">
+                  <summary class="flex items-center justify-between p-5 cursor-pointer">
+                    <span class="font-semibold text-white pr-4">{faq.q}</span>
+                    <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                  </summary>
+                  <div class="px-5 pb-5 text-gray-400 leading-relaxed">{faq.a}</div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <!-- Sidebar -->
+        <div class="space-y-6">
+          <!-- Pricing Card -->
+          <div class="bg-dark-700 border border-white/5 rounded-2xl p-6 sticky top-24">
+            <h3 class="font-bold text-white text-lg mb-3">{service.name}</h3>
+            <p class="text-sm text-gray-400 mb-6">Free on-site estimate for {county.name} County properties. 500+ projects completed.{county.transport && county.transport !== 'None (home base)' ? ` Transport: ${county.transport}.` : ''}</p>
+            <a href="#contact" class="block w-full bg-primary-500 hover:bg-primary-600 text-white text-center font-bold py-3 rounded-xl transition-colors mb-3">
+              Get Free Estimate
+            </a>
+            <a href={company.phoneHref} class="block w-full bg-white/10 hover:bg-white/15 text-white text-center font-semibold py-3 rounded-xl transition-colors">
+              Call {company.phone}
+            </a>
+          </div>
+
+          <!-- Other Services -->
+          <div class="bg-dark-700 border border-white/5 rounded-2xl p-6">
+            <h3 class="font-bold text-white mb-4">All Services in {county.name} County</h3>
+            <ul class="space-y-2">
+              {allServices.map((s: any) => (
+                <li>
+                  <a
+                    href={`/areas/${county.slug}/${s.slug}/`}
+                    class={`block text-sm px-3 py-2 rounded-lg transition-colors ${s.slug === service.slug ? 'bg-primary-500/10 text-primary-400 font-semibold' : 'text-gray-400 hover:text-white hover:bg-dark-600'}`}
+                  >
+                    {s.name}
+                  </a>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <!-- Trust Signals -->
+          <div class="bg-dark-700 border border-white/5 rounded-2xl p-6">
+            <div class="flex items-center gap-1 mb-3">
+              {[...Array(5)].map(() => (
+                <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+              ))}
+            </div>
+            <p class="text-sm text-gray-400">4.8 out of 5 from 97 Google Reviews</p>
+            <div class="border-t border-white/5 mt-4 pt-4 space-y-3">
+              <div class="flex items-center gap-2 text-sm text-gray-400">
+                <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                500+ Projects Completed
+              </div>
+              <div class="flex items-center gap-2 text-sm text-gray-400">
+                <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                Fully Licensed & Insured
+              </div>
+              <div class="flex items-center gap-2 text-sm text-gray-400">
+                <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                Owner-Operated
+              </div>
+              <div class="flex items-center gap-2 text-sm text-gray-400">
+                <svg class="w-4 h-4 text-green-400" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                CAT Equipment
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <ContactSection heading={`Get a ${service.name} Estimate in ${county.name} County`} />
+
+  <Footer padBottom={true} />
+
+  <MobileCTA />
+</Layout>

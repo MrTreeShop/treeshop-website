@@ -1,0 +1,31 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": "dist",
+  "installCommand": "npm install",
+  "redirects": [
+    { "source": "/locations/daytona-beach", "destination": "/areas/volusia/forestry-mulching/", "permanent": true },
+    { "source": "/locations/orange-city", "destination": "/areas/volusia/forestry-mulching/", "permanent": true },
+    { "source": "/locations/new-smyrna-beach", "destination": "/areas/volusia/forestry-mulching/", "permanent": true },
+    { "source": "/locations/deland", "destination": "/areas/volusia/forestry-mulching/", "permanent": true },
+    { "source": "/locations/palm-coast", "destination": "/areas/flagler/forestry-mulching/", "permanent": true },
+    { "source": "/locations/ormond-beach", "destination": "/areas/volusia/forestry-mulching/", "permanent": true },
+    { "source": "/locations/deltona", "destination": "/areas/volusia/forestry-mulching/", "permanent": true },
+    { "source": "/locations/port-orange", "destination": "/areas/volusia/forestry-mulching/", "permanent": true },
+    { "source": "/locations/sanford", "destination": "/areas/seminole/forestry-mulching/", "permanent": true },
+    { "source": "/locations/ocala", "destination": "/areas/marion/forestry-mulching/", "permanent": true },
+    { "source": "/locations/orlando", "destination": "/areas/orange/forestry-mulching/", "permanent": true },
+    { "source": "/locations/kissimmee", "destination": "/areas/osceola/forestry-mulching/", "permanent": true },
+    { "source": "/locations/melbourne", "destination": "/areas/brevard/forestry-mulching/", "permanent": true },
+    { "source": "/locations/jacksonville", "destination": "/areas/duval/forestry-mulching/", "permanent": true },
+    { "source": "/locations/gainesville", "destination": "/areas/alachua/forestry-mulching/", "permanent": true },
+    { "source": "/locations/lakeland", "destination": "/areas/polk/forestry-mulching/", "permanent": true },
+    { "source": "/locations/tampa", "destination": "/areas/hillsborough/forestry-mulching/", "permanent": true },
+    { "source": "/locations/:city*", "destination": "/", "permanent": true },
+    { "source": "/services/land-clearing", "destination": "/#services", "permanent": true },
+    { "source": "/services/stump-grinding", "destination": "/#services", "permanent": true },
+    { "source": "/services/excavation", "destination": "/#services", "permanent": true },
+    { "source": "/reviews", "destination": "/#reviews", "permanent": true },
+    { "source": "/about", "destination": "/", "permanent": true },
+    { "source": "/contact", "destination": "/#contact", "permanent": true }
+  ]
+}

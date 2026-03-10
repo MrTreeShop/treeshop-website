@@ -1,0 +1,36 @@
+---
+import Layout from './Layout.astro';
+import Nav from '../components/Nav.astro';
+import Footer from '../components/Footer.astro';
+import MobileCTA from '../components/MobileCTA.astro';
+import Breadcrumbs from '../components/Breadcrumbs.astro';
+
+interface BreadcrumbItem {
+  label: string;
+  href?: string;
+}
+
+interface Props {
+  title: string;
+  description: string;
+  breadcrumbs: BreadcrumbItem[];
+  ctaHref?: string;
+}
+
+const { title, description, breadcrumbs, ctaHref = '#contact' } = Astro.props;
+---
+
+<Layout title={title} description={description}>
+  <Nav mode="subpage" ctaHref={ctaHref} />
+
+  <div class="pt-20 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <Breadcrumbs items={breadcrumbs} />
+    </div>
+  </div>
+
+  <slot />
+
+  <Footer padBottom={true} />
+  <MobileCTA ctaHref={ctaHref} />
+</Layout>

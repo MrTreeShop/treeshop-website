@@ -1,0 +1,248 @@
+---
+import Layout from '../../layouts/Layout.astro';
+import Nav from '../../components/Nav.astro';
+import { Image } from 'astro:assets';
+import heroImg from '../../assets/images/gallery-cat-clearing.jpg';
+import { counties, services, company } from '../../data/index';
+import ContactSection from '../../components/ContactSection.astro';
+import Footer from '../../components/Footer.astro';
+import MobileCTA from '../../components/MobileCTA.astro';
+import Sidebar from '../../components/Sidebar.astro';
+
+const service = {
+  name: "Brush Hog / Heavy Mowing",
+  slug: "brush-mowing",
+  desc: "High-capacity rotary mowing for grassy overgrown fields, pastures, and lots free of woody debris. Ideal for tall grass, weeds, and pasture maintenance that don't require forestry mulching equipment.",
+  detail: "Brush hogging is heavy-duty rotary mowing designed for grassy overgrown fields, pastures, and lots that are free of woody debris — the kind of vegetation that's too tall or thick for a standard lawn mower but doesn't have the woody stems and trees that require a forestry mulcher. This is the right service when your property is mostly grass and weeds, not trees and woody brush. Also ideal for ongoing pasture maintenance to keep agricultural land productive. We run CAT track loaders with high-capacity rotary attachments that knock down vegetation a standard mower can't touch.",
+  ideal: [
+    "Overgrown vacant lots with tall grass and weeds",
+    "Pasture and field maintenance",
+    "Right-of-way and easement mowing",
+    "Pre-development lot cleanup",
+    "Agricultural land and pasture preparation"
+  ],
+  faqs: [
+    { q: "What's the difference between brush hogging and forestry mulching?", a: "Brush hogging is rotary mowing for grass, weeds, and light brush. Forestry mulching uses a forestry mulcher head to grind woody vegetation — trees, stumps, and heavy brush up to 8 inches in diameter. If a standard mower would go around it, you need mulching. If it's mostly grass and weeds, brush hogging is the right call." },
+    { q: "How overgrown can the property be?", a: "Brush hogging handles grass and weeds of virtually any height, plus light woody brush. If the property has significant trees or woody stems over a few inches, we may recommend mulching for those areas instead." },
+    { q: "How often should I brush hog my property?", a: "For vacant lots and pastures in Central Florida, 2-4 times per year keeps growth under control. Quarterly mowing prevents the vegetation from getting so thick that it requires more intensive clearing." },
+    { q: "Can you mow around obstacles like fences and trees?", a: "Yes. Our operators work around existing structures, fence lines, trees you want to keep, and utility infrastructure. We'll discuss any obstacles during the estimate so there are no surprises." },
+    { q: "Is brush hogging cheaper than forestry mulching?", a: "Generally, yes — because the equipment is running a rotary mower instead of a mulcher head, and the vegetation is lighter. Day rates for brush hogging are confirmed during your free estimate." },
+    { q: "Do I need to be on-site during the work?", a: "No, but we recommend being available for the initial walkthrough and final review. Jeremiah handles every project personally and will communicate throughout." }
+  ],
+};
+
+const pageTitle = "Brush Hog & Heavy Mowing | Central Florida | TreeShop LLC";
+const pageDesc = "Professional brush hogging and heavy mowing across Central Florida. CAT equipment for overgrown fields, pastures, and lots. Day rate pricing. Free estimates. Call (386) 843-5266.";
+---
+
+<Layout title={pageTitle} description={pageDesc} ogImage="/og-services.webp">
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "Service",
+    "name": "Brush Hog / Heavy Mowing",
+    "provider": {
+      "@type": "LocalBusiness",
+      "name": company.name,
+      "telephone": "+13868435266",
+      "email": company.email,
+      "address": {
+        "@type": "PostalAddress",
+        "addressLocality": "New Smyrna Beach",
+        "addressRegion": "FL",
+        "postalCode": "32168"
+      },
+      "aggregateRating": {
+        "@type": "AggregateRating",
+        "ratingValue": "4.8",
+        "reviewCount": "97"
+      }
+    },
+    "areaServed": { "@type": "State", "name": "Florida" },
+    "description": pageDesc
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    "mainEntity": service.faqs.map(f => ({
+      "@type": "Question",
+      "name": f.q,
+      "acceptedAnswer": { "@type": "Answer", "text": f.a }
+    }))
+  })} />
+
+  <script type="application/ld+json" set:html={JSON.stringify({
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    "itemListElement": [
+      { "@type": "ListItem", "position": 1, "name": "Home", "item": "https://treeshop.app/" },
+      { "@type": "ListItem", "position": 2, "name": "Services", "item": "https://treeshop.app/#services" },
+      { "@type": "ListItem", "position": 3, "name": "Brush Hog / Heavy Mowing" }
+    ]
+  })} />
+
+  <Nav mode="subpage" ctaHref="#contact" />
+
+  <section class="pt-20 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <nav class="flex items-center gap-2 text-sm text-gray-500 pt-8 sm:pt-12 mb-8">
+        <a href="/" class="hover:text-white transition-colors">Home</a>
+        <span>/</span>
+        <a href="/#services" class="hover:text-white transition-colors">Services</a>
+        <span>/</span>
+        <span class="text-gray-300">Brush Hog / Heavy Mowing</span>
+      </nav>
+
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-8 lg:gap-12 items-center pb-16 sm:pb-20">
+        <div>
+          <div class="inline-flex items-center gap-2 bg-primary-500/10 border border-primary-500/20 rounded-full px-4 py-1.5 mb-6">
+            <span class="w-2 h-2 bg-green-400 rounded-full animate-pulse"></span>
+            <span class="text-sm text-primary-400">Day Rate Pricing</span>
+          </div>
+
+          <h1 class="text-4xl sm:text-5xl lg:text-6xl font-black text-white leading-[1.1] mb-4">
+            Overgrown Fields Restored to Productive Shape
+          </h1>
+
+          <p class="text-lg text-gray-400 mb-8 max-w-lg">
+            {service.desc}
+          </p>
+
+          <div class="flex flex-col sm:flex-row gap-4 mb-8">
+            <a href="#contact" class="inline-flex items-center justify-center bg-primary-500 hover:bg-primary-600 text-white font-bold text-lg px-8 py-4 rounded-xl transition-colors">
+              Get a Free Estimate
+            </a>
+            <a href={company.phoneHref} class="inline-flex items-center justify-center bg-white/5 hover:bg-white/10 text-white font-semibold text-lg px-8 py-4 rounded-xl border border-white/10 transition-colors">
+              <svg class="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"></path></svg>
+              Call {company.phone}
+            </a>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-6 pt-6 border-t border-white/10">
+            <div class="flex items-center gap-2">
+              <div class="flex -space-x-0.5">
+                {[...Array(5)].map(() => (
+                  <svg class="w-5 h-5 text-yellow-400" fill="currentColor" viewBox="0 0 20 20"><path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z"></path></svg>
+                ))}
+              </div>
+              <span class="text-sm text-gray-400">4.8 on Google (97 reviews)</span>
+            </div>
+            <div class="text-sm text-gray-400 hidden sm:block">|</div>
+            <div class="text-sm text-gray-400">500+ Projects</div>
+          </div>
+        </div>
+
+        <div class="relative rounded-2xl overflow-hidden">
+          <Image
+            src={heroImg}
+            alt="CAT track loader with brush mowing attachment clearing overgrown field"
+            class="w-full h-72 sm:h-96 lg:h-[500px] object-cover"
+            widths={[600, 900, 1200]}
+            sizes="(max-width: 1024px) 100vw, 50vw"
+            quality={85}
+            loading="eager"
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-24 bg-dark-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="grid grid-cols-1 lg:grid-cols-3 gap-12">
+        <div class="lg:col-span-2 space-y-12">
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">What Brush Hogging Delivers</h2>
+            <p class="text-gray-400 leading-relaxed mb-4">{service.detail}</p>
+            <p class="text-gray-400 leading-relaxed">
+              Jeremiah handles every estimate and project personally. Owner-operated means direct communication and accountability from start to finish.
+            </p>
+          </div>
+
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Ideal For</h2>
+            <ul class="space-y-3">
+              {service.ideal.map((item) => (
+                <li class="flex items-start gap-3">
+                  <svg class="w-5 h-5 text-green-400 mt-0.5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+                  <span class="text-gray-400">{item}</span>
+                </li>
+              ))}
+            </ul>
+          </div>
+
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-4">Our Process</h2>
+            <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
+              <div class="bg-dark-700 rounded-xl p-6 border border-white/5">
+                <div class="text-2xl font-black text-primary-400 mb-2">01</div>
+                <h3 class="font-bold text-white mb-1">Free Estimate</h3>
+                <p class="text-sm text-gray-400">Jeremiah evaluates your property — checking vegetation type, density, terrain, and access points to confirm brush hogging is the right approach.</p>
+              </div>
+              <div class="bg-dark-700 rounded-xl p-6 border border-white/5">
+                <div class="text-2xl font-black text-primary-400 mb-2">02</div>
+                <h3 class="font-bold text-white mb-1">MSA Agreement</h3>
+                <p class="text-sm text-gray-400">Clear scope, timeline, and expectations documented before any equipment rolls. Day rate pricing with no hidden costs.</p>
+              </div>
+              <div class="bg-dark-700 rounded-xl p-6 border border-white/5">
+                <div class="text-2xl font-black text-primary-400 mb-2">03</div>
+                <h3 class="font-bold text-white mb-1">Production</h3>
+                <p class="text-sm text-gray-400">CAT track loader with high-capacity rotary attachment mows down vegetation that a standard mower can't touch. Most lots completed in a single day.</p>
+              </div>
+              <div class="bg-dark-700 rounded-xl p-6 border border-white/5">
+                <div class="text-2xl font-black text-primary-400 mb-2">04</div>
+                <h3 class="font-bold text-white mb-1">Final Walkthrough</h3>
+                <p class="text-sm text-gray-400">Owner Jeremiah Anderson walks the finished project with you to confirm every detail meets expectations before we close out.</p>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <h2 class="text-2xl sm:text-3xl font-bold text-white mb-6">Frequently Asked Questions</h2>
+            <div class="space-y-4">
+              {service.faqs.map((faq) => (
+                <details class="group bg-dark-700 border border-white/5 rounded-xl">
+                  <summary class="flex items-center justify-between p-5 cursor-pointer">
+                    <span class="font-semibold text-white pr-4">{faq.q}</span>
+                    <svg class="w-5 h-5 text-gray-400 group-open:rotate-180 transition-transform flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M19 9l-7 7-7-7"></path></svg>
+                  </summary>
+                  <div class="px-5 pb-5 text-gray-400 leading-relaxed">{faq.a}</div>
+                </details>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        <Sidebar serviceName={service.name} activeSlug={service.slug} ctaLabel="Get a Free Estimate" />
+      </div>
+    </div>
+  </section>
+
+  <section class="py-16 sm:py-24 bg-dark-900">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+      <div class="text-center mb-12">
+        <p class="text-primary-500 font-semibold text-sm uppercase tracking-widest mb-3">Coverage</p>
+        <h2 class="text-3xl sm:text-4xl font-bold text-white">Brush Hogging Across 32 Counties</h2>
+        <p class="mt-4 text-gray-400 max-w-2xl mx-auto text-lg">Click any county for local terrain info and project details.</p>
+      </div>
+
+      <div class="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3">
+        {counties.map((county) => (
+          <a
+            href={`/areas/${county.slug}/brush-mowing/`}
+            class="bg-dark-800 border border-white/5 rounded-xl px-4 py-3 text-center hover:border-primary-500/30 hover:bg-dark-700 transition-colors group"
+          >
+            <p class="text-sm font-medium text-gray-300 group-hover:text-white transition-colors">{county.name}</p>
+            <p class="text-xs text-gray-500">{county.driveTime}</p>
+          </a>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <ContactSection heading="Get a Free Brush Hogging Estimate" />
+
+  <Footer padBottom={true} />
+
+  <MobileCTA ctaLabel="Get Estimate" />
+</Layout>

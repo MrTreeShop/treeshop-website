@@ -1,0 +1,20 @@
+/** Maps service slugs to their standalone page URLs */
+export const servicePageMap: Record<string, string> = {
+  "forestry-mulching": "/services/forestry-mulching/",
+  "land-clearing": "/services/land-clearing/",
+  "brush-mowing": "/services/brush-mowing/",
+  "stump-grinding": "/services/stump-grinding/",
+  "grading-excavation": "/services/grading-excavation/",
+  "fuel-reduction": "/services/fuel-reduction/",
+  "debris-disposal": "/services/debris-disposal/",
+  "timber-stand-improvement": "/services/timber-stand-improvement/",
+  "prescribed-fire-preparation": "/services/prescribed-fire-preparation/",
+  "wildlife-habitat-restoration": "/services/wildlife-habitat-restoration/",
+  "invasive-species-management": "/services/invasive-species-management/",
+  "longleaf-pine-restoration": "/services/longleaf-pine-restoration/",
+  "fuel-load-reduction": "/services/fuel-load-reduction/",
+  "land-reclamation": "/services/land-reclamation/",
+  "eqip-conservation-practices": "/services/eqip-conservation-practices/",
+  "annual-partnerships": "/services/annual-partnerships/",
+  "enterprise-services": "/services/enterprise-services/",
+};
